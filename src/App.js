@@ -50,8 +50,62 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-export default function App() {
+  export default function App() {
+  
+    return (
+      <>
+  
+        <NavBar />
+  
+        <Main />
+        
+      </>
+    );
+  }
+
+function NavBar() {
+
+  return (
+    <nav className="nav-bar">
+      <Logo />
+      <Search />
+      <NumResults />
+    </nav>
+  )
+}
+
+function Logo(){
+  return (
+    <div className="logo">
+    <span role="img">🍿</span>
+    <h1>usePopcorn</h1>
+  </div>
+  )
+}
+
+function NumResults(){
+  return (
+    <p className="num-results">
+    Found <strong>X</strong> results
+  </p>
+  )
+}
+
+function Search(){
   const [query, setQuery] = useState("");
+
+  return (
+    <input
+      className="search"
+      type="text"
+      placeholder="Search movies..."
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+    />
+  )
+} 
+
+function Main() {
   const [movies, setMovies] = useState(tempMovieData);
   const [watched, setWatched] = useState(tempWatchedData);
   const [isOpen1, setIsOpen1] = useState(true);
@@ -61,26 +115,9 @@ export default function App() {
   const avgUserRating = average(watched.map((movie) => movie.userRating));
   const avgRuntime = average(watched.map((movie) => movie.runtime));
 
-  return (
-    <>
-      <nav className="nav-bar">
-        <div className="logo">
-          <span role="img">🍿</span>
-          <h1>usePopcorn</h1>
-        </div>
-        <input
-          className="search"
-          type="text"
-          placeholder="Search movies..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <p className="num-results">
-          Found <strong>{movies.length}</strong> results
-        </p>
-      </nav>
 
-      <main className="main">
+  return (
+    <main className="main">
         <div className="box">
           <button
             className="btn-toggle"
@@ -163,6 +200,7 @@ export default function App() {
           )}
         </div>
       </main>
-    </>
-  );
+  )
 }
+
+
